@@ -5,7 +5,7 @@
 Favorite Animated Button written in OC
 
 
-![preview](https://github.com/tljackyi/Favorite.gif)
+![preview](https://github.com/tljackyi/fave-button/blob/master/Favorite.gif)
 
 
 

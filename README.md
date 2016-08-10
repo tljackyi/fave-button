@@ -1,8 +1,7 @@
 # FaveButton
 
 
-
-Favorite Animated Button written in OC
+Favorite Animated Button written in [Swift](https://github.com/xhamr/fave-button) but ported to Objective-C
 
 
 ![preview](https://github.com/tljackyi/fave-button/blob/master/Favorite.gif)

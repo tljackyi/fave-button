@@ -86,6 +86,7 @@
     
     CAKeyframeAnimation *scaleAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
     scaleAnimation.values = self.tweenValues;
+    scaleAnimation.duration = duration;
     scaleAnimation.beginTime = CACurrentMediaTime()+selectedDelay;
     [self.iconMask addAnimation:scaleAnimation forKey:nil];
 }

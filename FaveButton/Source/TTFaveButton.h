@@ -15,6 +15,7 @@
 @protocol TTFaveButtonDelegate <NSObject>
 
 @optional
+- (BOOL)faveButtonShouldAnimation;
 - (void)faveButton:(TTFaveButton *)button didSelected:(BOOL)selected;
 - (NSArray<NSArray *> *)faveButtonDotColors:(TTFaveButton *)button;
 

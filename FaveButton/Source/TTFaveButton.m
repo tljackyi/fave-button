@@ -87,6 +87,9 @@
 - (void)setSelected:(BOOL)selected
 {
     [super setSelected:selected];
+    
+    UIColor *color =  selected ? self.selectedColor : self.normalColor;
+    [self.faveIcon selectWithoutAnimation:selected fillColor:color];
 }
 
 
@@ -138,13 +141,22 @@
 
 - (void)toggle:(UIButton *)button
 {
+    if ([self.delegate respondsToSelector:@selector(faveButtonShouldAnimation)]) {
+        BOOL shouldAnimation = [self.delegate faveButtonShouldAnimation];
+        if (!shouldAnimation) {
+            return;
+        }
+    }
+    
     button.selected = !button.selected;
+    button.userInteractionEnabled = NO;
     [self animateSelect:button.selected duration:dtDuration];
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(dtDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if ([self.delegate respondsToSelector:@selector(faveButton:didSelected:)]) {
             [self.delegate faveButton:self didSelected:button.selected];
         }
+        button.userInteractionEnabled = YES;
     });
 }
 

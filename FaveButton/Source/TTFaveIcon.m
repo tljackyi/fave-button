@@ -78,6 +78,15 @@
     [self.layer addSublayer:self.iconLayer];
 }
 
+- (void)selectWithoutAnimation:(BOOL)isSelected fillColor:(UIColor *)fillColor
+{
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
+    self.iconMask.contents = isSelected?(__bridge id _Nullable)(self.selectedIconImage.CGImage):(__bridge id _Nullable)(self.iconImage.CGImage);
+    self.iconLayer.fillColor = fillColor.CGColor;
+    [CATransaction commit];
+}
+
 - (void)animateSelect:(BOOL)isSelected fillColor:(UIColor *)fillColor duration:(NSTimeInterval )duration delay:(NSTimeInterval )delay
 {
     if (!self.tweenValues) {

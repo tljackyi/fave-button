@@ -13,6 +13,8 @@
 
 + (TTFaveIcon *)createFaveIcon:(UIView *)onView icon:(UIImage *)icon color:(UIColor *)color;
 + (TTFaveIcon *)createFaveIcon:(UIView *)onView icon:(UIImage *)icon selectedIcon:(UIImage *)selectedIcon color:(UIColor *)color;
-- (void)animateSelect:(BOOL)isSelect fillColor:(UIColor *)fillColor duration:(NSTimeInterval )duration delay:(NSTimeInterval )delay;
+
+- (void)selectWithoutAnimation:(BOOL)isSelected fillColor:(UIColor *)fillColor;
+- (void)animateSelect:(BOOL)isSelected fillColor:(UIColor *)fillColor duration:(NSTimeInterval )duration delay:(NSTimeInterval )delay;
 
 @end

@@ -108,11 +108,23 @@
     for (NSInteger index=0; index<=7; index++) {
         CGFloat theta  = step * index + offset;
         
-        TTSpark *spark = [TTSpark createSpark:self radius:radius firstColor:self.dotFirstColor secondColor:self.dotSecondColor angle:theta dotRadius:dotRadius];
+        NSArray *colors = [self dotColorsAtIndex:index];
+        
+        TTSpark *spark = [TTSpark createSpark:self radius:radius firstColor:colors.firstObject secondColor:colors.lastObject angle:theta dotRadius:dotRadius];
         [sparks addObject:spark];
     }
     
     return sparks;
+}
+
+- (NSArray *)dotColorsAtIndex:(NSInteger)index
+{
+    if ([self.delegate respondsToSelector:@selector(faveButtonDotColors:)]) {
+        NSArray *colors = [self.delegate faveButtonDotColors:self];
+        return colors[index];
+    }
+    
+    return @[self.dotFirstColor, self.dotSecondColor];
 }
 
 - (void)toggle:(UIButton *)button
@@ -121,7 +133,7 @@
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(dtDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if ([self.delegate respondsToSelector:@selector(faveButton:didSelected:)]) {
-            [self.delegate faveButton:button didSelected:button.selected];
+            [self.delegate faveButton:self didSelected:button.selected];
         }
     });
 }

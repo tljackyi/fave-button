@@ -8,10 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+
+
+@class TTFaveButton;
+
 @protocol TTFaveButtonDelegate <NSObject>
 
 @optional
-- (void)faveButton:(UIButton *)button didSelected:(BOOL)selected;
+- (void)faveButton:(TTFaveButton *)button didSelected:(BOOL)selected;
+- (NSArray<NSArray *> *)faveButtonDotColors:(TTFaveButton *)button;
 
 @end
 

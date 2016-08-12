@@ -4,6 +4,7 @@
 Favorite Animated Button written in [Swift](https://github.com/xhamr/fave-button) but ported to Objective-C
 
 
+![preview](https://github.com/tljackyi/fave-button/blob/master/Favorite1.gif)
 ![preview](https://github.com/tljackyi/fave-button/blob/master/Favorite.gif)
 
 

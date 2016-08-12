@@ -87,7 +87,6 @@
 - (void)setSelected:(BOOL)selected
 {
     [super setSelected:selected];
-    [self animateSelect:selected duration:dtDuration];
 }
 
 
@@ -140,7 +139,8 @@
 - (void)toggle:(UIButton *)button
 {
     button.selected = !button.selected;
-    
+    [self animateSelect:button.selected duration:dtDuration];
+
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(dtDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if ([self.delegate respondsToSelector:@selector(faveButton:didSelected:)]) {
             [self.delegate faveButton:self didSelected:button.selected];

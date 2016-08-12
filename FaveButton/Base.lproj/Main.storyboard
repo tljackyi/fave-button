@@ -18,12 +18,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eeC-wS-or1" customClass="TTFaveButton">
-                                <rect key="frame" x="292.5" y="293.5" width="15" height="13"/>
+                                <rect key="frame" x="278" y="278" width="44" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="15" id="Pln-B0-nck"/>
-                                    <constraint firstAttribute="height" constant="13" id="mxe-UJ-vAD"/>
+                                    <constraint firstAttribute="width" constant="44" id="Pln-B0-nck"/>
+                                    <constraint firstAttribute="height" constant="44" id="mxe-UJ-vAD"/>
                                 </constraints>
                                 <state key="normal" image="icon-uncollected"/>
+                                <state key="selected" image="icon-collected"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
                                         <color key="value" red="1" green="0.67450980390000004" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -41,7 +42,7 @@
                                         <color key="value" red="1" green="0.67450980390000004" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="normalColor">
-                                        <color key="value" red="0.46666666670000001" green="0.46666666670000001" blue="0.78039215689999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
@@ -58,6 +59,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="icon-collected" width="15" height="13"/>
         <image name="icon-uncollected" width="15" height="13"/>
     </resources>
 </document>

@@ -15,6 +15,7 @@
 
 @property (nonatomic, strong) UIColor *iconColor;
 @property (nonatomic, strong) UIImage *iconImage;
+@property (nonatomic, strong) UIImage *selectedIconImage;
 @property (nonatomic, strong) CAShapeLayer *iconLayer;
 @property (nonatomic, strong) CALayer *iconMask;
 @property (nonatomic, assign) CGRect contentRegion;
@@ -32,6 +33,20 @@
     if (self) {
         self.contentRegion = region;
         self.iconImage = icon;
+        self.iconColor = color;
+        [self applyInit];
+    }
+    return self;
+}
+
+- (instancetype)initRegion:(CGRect)region icon:(UIImage *)icon selectedIcon:(UIImage *)selectedIcon color:(UIColor *)color
+{
+    self = [super initWithFrame:CGRectZero];
+    
+    if (self) {
+        self.contentRegion = region;
+        self.iconImage = icon;
+        self.selectedIconImage = selectedIcon;
         self.iconColor = color;
         [self applyInit];
     }
@@ -69,8 +84,10 @@
         self.tweenValues = [self generateTweenValues:0 to:1 duration:duration];
     }
     
+    
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
+    self.iconMask.contents = isSelected?(__bridge id _Nullable)(self.selectedIconImage.CGImage):(__bridge id _Nullable)(self.iconImage.CGImage);
     self.iconLayer.fillColor = fillColor.CGColor;
     [CATransaction commit];
     
@@ -102,6 +119,18 @@
         make.width.height.equalTo(@(0));
     }];
     
+    return favaIcon;
+}
+
++ (TTFaveIcon *)createFaveIcon:(UIView *)onView icon:(UIImage *)icon selectedIcon:(UIImage *)selectedIcon color:(UIColor *)color{
+    
+    TTFaveIcon *favaIcon = [[TTFaveIcon alloc] initRegion:onView.bounds icon:icon selectedIcon:selectedIcon color:color];
+    favaIcon.backgroundColor = [UIColor clearColor];
+    [onView addSubview:favaIcon];
+    [favaIcon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.centerY.equalTo(onView);
+        make.width.height.equalTo(@(0));
+    }];
     
     return favaIcon;
 }

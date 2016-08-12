@@ -19,6 +19,7 @@
 @interface TTFaveButton ()
 
 @property (nonatomic, strong) UIImage *faveIconImage;
+@property (nonatomic, strong) UIImage *selectedFaveIconImage;
 @property (nonatomic, strong) TTFaveIcon *faveIcon;
 
 @end
@@ -69,12 +70,16 @@
         _faveIconImage = [self imageForState:UIControlStateNormal];
     }
     
+    if (!_selectedFaveIconImage) {
+        _selectedFaveIconImage = [self imageForState:UIControlStateSelected];
+    }
+    
     [self setImage:[UIImage new] forState:UIControlStateNormal];
     [self setImage:[UIImage new] forState:UIControlStateSelected];
     [self setTitle:nil forState:UIControlStateNormal];
     [self setTitle:nil forState:UIControlStateSelected];
     
-    self.faveIcon = [self createFaveIcon:_faveIconImage];
+    self.faveIcon = [self createFaveIcon:_faveIconImage selectedFaveIconImage:_selectedFaveIconImage];
     [self addActions];
     
 }
@@ -89,6 +94,11 @@
 - (TTFaveIcon *)createFaveIcon:(UIImage *)faveIconImage
 {
     return [TTFaveIcon createFaveIcon:self icon:faveIconImage color:self.normalColor];
+}
+
+- (TTFaveIcon *)createFaveIcon:(UIImage *)faveIconImage selectedFaveIconImage:(UIImage *)selectedFaveIconImage;
+{
+    return [TTFaveIcon createFaveIcon:self icon:faveIconImage selectedIcon:selectedFaveIconImage color:self.normalColor];
 }
 
 - (void)addActions

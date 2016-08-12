@@ -55,7 +55,6 @@
     }];
     
  
-    
     [self.dotFirst mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self);
         make.width.height.equalTo(@(self.dotRadius.first * 2.0));

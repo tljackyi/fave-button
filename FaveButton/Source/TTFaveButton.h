@@ -32,4 +32,6 @@
 
 @property (nonatomic, weak) id delegate;
 
+- (instancetype)initWithFrame:(CGRect)frame faveIconImage:(UIImage *)faveIconImage selectedFaveIconImage:(UIImage *)selectedFaveIconImage;
+
 @end

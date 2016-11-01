@@ -26,11 +26,31 @@
 
 @implementation TTFaveButton
 
+- (instancetype)initWithFrame:(CGRect)frame faveIconImage:(UIImage *)faveIconImage selectedFaveIconImage:(UIImage *)selectedFaveIconImage
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        
+        [self setImage:faveIconImage forState:UIControlStateNormal];
+        [self setImage:selectedFaveIconImage forState:UIControlStateSelected];
+        
+        self.normalColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
+        self.selectedColor = [UIColor colorWithRed:226/255.0 green:38/255.0 blue:77/255.0 alpha:1];
+        self.dotFirstColor = [UIColor colorWithRed:152/255.0 green:219/255.0 blue:236/255.0 alpha:1];
+        self.dotSecondColor = [UIColor colorWithRed:247/255.0 green:188/255.0 blue:48/255.0 alpha:1];
+        self.circleFromColor = [UIColor colorWithRed:221/255.0 green:70/255.0 blue:136/255.0 alpha:1];
+        self.circleToColor = [UIColor colorWithRed:205/255.0 green:143/255.0 blue:246/255.0 alpha:1];
+        
+        [self applyInit];
+    }
+    return self;
+}
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.normalColor = [UIColor colorWithRed:137/255.0 green:156/255.0 blue:167/255.0 alpha:1];
+        self.normalColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
         self.selectedColor = [UIColor colorWithRed:226/255.0 green:38/255.0 blue:77/255.0 alpha:1];
         self.dotFirstColor = [UIColor colorWithRed:152/255.0 green:219/255.0 blue:236/255.0 alpha:1];
         self.dotSecondColor = [UIColor colorWithRed:247/255.0 green:188/255.0 blue:48/255.0 alpha:1];
@@ -47,7 +67,7 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         
-        self.normalColor = [UIColor colorWithRed:137/255.0 green:156/255.0 blue:167/255.0 alpha:1];
+        self.normalColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
         self.selectedColor = [UIColor colorWithRed:226/255.0 green:38/255.0 blue:77/255.0 alpha:1];
         self.dotFirstColor = [UIColor colorWithRed:152/255.0 green:219/255.0 blue:236/255.0 alpha:1];
         self.dotSecondColor = [UIColor colorWithRed:247/255.0 green:188/255.0 blue:48/255.0 alpha:1];
@@ -150,12 +170,15 @@
     
     button.selected = !button.selected;
     button.userInteractionEnabled = NO;
+    [UIApplication sharedApplication].keyWindow.userInteractionEnabled = NO;
     [self animateSelect:button.selected duration:dtDuration];
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(dtDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if ([self.delegate respondsToSelector:@selector(faveButton:didSelected:)]) {
             [self.delegate faveButton:self didSelected:button.selected];
         }
+        
+        [UIApplication sharedApplication].keyWindow.userInteractionEnabled = YES;
         button.userInteractionEnabled = YES;
     });
 }

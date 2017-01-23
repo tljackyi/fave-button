@@ -7,10 +7,9 @@
 //
 
 #import "TTRing.h"
-#import "Masonry.h"
 #import "UIView+TTAutoLayout.h"
 
-@interface TTRing ()
+@interface TTRing ()<CAAnimationDelegate>
 
 @property (nonatomic, strong) UIColor *fillColor;
 @property (nonatomic, assign) CGFloat radius;
@@ -39,11 +38,15 @@
 {
     UIView *centerView = [[UIView alloc] initWithFrame:CGRectZero];
     centerView.backgroundColor = [UIColor clearColor];
+    centerView.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:centerView];
-    [centerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.centerY.equalTo(self);
-        make.width.height.equalTo(@(0));
-    }];
+    
+    NSLayoutConstraint *centerXConstraint = [NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
+    NSLayoutConstraint *centerYConstraint = [NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
+    NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:0];
+    NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:0];
+    [self addConstraints:@[centerXConstraint, centerYConstraint]];
+    [centerView addConstraints:@[widthConstraint, heightConstraint]];
     
     CAShapeLayer *circle = [self createRingLayerRadius:self.radius lineWidth:self.lineWidth fillColor:[UIColor clearColor] strokeColor:self.fillColor];
     [centerView.layer addSublayer:circle];
@@ -167,14 +170,16 @@
 {
     TTRing *ring = [[TTRing alloc] initRadius:radius linwWidth:lineWidth fillColor:fillCorlor];
     ring.backgroundColor = [UIColor clearColor];
+    ring.translatesAutoresizingMaskIntoConstraints = NO;
     [faveButton.superview insertSubview:ring belowSubview:faveButton];
     
-    
-    [ring mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.centerY.equalTo(faveButton);
-        make.width.height.equalTo(@(radius*2));
-    }];
-    
+    NSLayoutConstraint *centerXConstraint = [NSLayoutConstraint constraintWithItem:ring attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:faveButton attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
+    NSLayoutConstraint *centerYConstraint = [NSLayoutConstraint constraintWithItem:ring attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:faveButton attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
+    NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:ring attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:radius*2];
+    NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:ring attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:radius*2];
+    [faveButton.superview addConstraints:@[centerXConstraint, centerYConstraint]];
+    [ring addConstraints:@[widthConstraint, heightConstraint]];
+
     return ring;
 }
 

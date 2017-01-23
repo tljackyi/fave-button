@@ -9,7 +9,7 @@
 #import "TTEasing.h"
 
 
- CGFloat TTTimingFunctionElasticOut (CGFloat _t, CGFloat b, CGFloat c, CGFloat d, CGFloat _a, CGFloat _p) {
+CGFloat TTTimingFunctionElasticOut (CGFloat _t, CGFloat b, CGFloat c, CGFloat d, CGFloat _a, CGFloat _p) {
     CGFloat  s = 0.0;
     CGFloat  t = _t;
     CGFloat  a = _a;

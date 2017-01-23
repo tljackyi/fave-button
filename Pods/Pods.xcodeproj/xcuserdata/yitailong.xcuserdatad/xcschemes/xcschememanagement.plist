@@ -9,11 +9,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Masonry.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-FaveButton.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,17 +17,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>53480ED0BE09FF49E34B1702D485CAAB</key>
+		<key>24B352CAA2F4C953C87217E496D099D3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B2BEF1425BB9D92FCE1DF581D454A404</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B8E3EB522A2404774C83B52A649F4C5A</key>
+		<key>AC9A8C8CA61EC332E5E5622810351B99</key>
 		<dict>
 			<key>primary</key>
 			<true/>

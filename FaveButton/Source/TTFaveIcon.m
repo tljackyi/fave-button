@@ -7,9 +7,6 @@
 //
 
 #import "TTFaveIcon.h"
-#import "Masonry.h"
-
-
 
 @interface TTFaveIcon ()
 
@@ -122,11 +119,15 @@
     
     TTFaveIcon *favaIcon = [[TTFaveIcon alloc] initRegion:onView.bounds icon:icon color:color];
     favaIcon.backgroundColor = [UIColor clearColor];
+    favaIcon.translatesAutoresizingMaskIntoConstraints = NO;
     [onView addSubview:favaIcon];
-    [favaIcon mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.centerY.equalTo(onView);
-        make.width.height.equalTo(@(0));
-    }];
+    
+    NSLayoutConstraint *centerXConstraint = [NSLayoutConstraint constraintWithItem:favaIcon attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:onView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
+    NSLayoutConstraint *centerYConstraint = [NSLayoutConstraint constraintWithItem:favaIcon attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:onView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
+    NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:favaIcon attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:0];
+    NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:favaIcon attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:0];
+    [onView addConstraints:@[centerXConstraint, centerYConstraint]];
+    [favaIcon addConstraints:@[widthConstraint, heightConstraint]];
     
     return favaIcon;
 }
@@ -135,11 +136,15 @@
     
     TTFaveIcon *favaIcon = [[TTFaveIcon alloc] initRegion:onView.bounds icon:icon selectedIcon:selectedIcon color:color];
     favaIcon.backgroundColor = [UIColor clearColor];
+    favaIcon.translatesAutoresizingMaskIntoConstraints = NO;
     [onView addSubview:favaIcon];
-    [favaIcon mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.centerY.equalTo(onView);
-        make.width.height.equalTo(@(0));
-    }];
+    
+    NSLayoutConstraint *centerXConstraint = [NSLayoutConstraint constraintWithItem:favaIcon attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:onView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
+    NSLayoutConstraint *centerYConstraint = [NSLayoutConstraint constraintWithItem:favaIcon attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:onView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
+    NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:favaIcon attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:0];
+    NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:favaIcon attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:0];
+    [onView addConstraints:@[centerXConstraint, centerYConstraint]];
+    [favaIcon addConstraints:@[widthConstraint, heightConstraint]];
     
     return favaIcon;
 }

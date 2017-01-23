@@ -80,8 +80,8 @@
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
     [self applyInit];
-
 }
 
 - (void)applyInit
@@ -169,8 +169,7 @@
     }
     
     button.selected = !button.selected;
-    button.userInteractionEnabled = NO;
-    [UIApplication sharedApplication].keyWindow.userInteractionEnabled = NO;
+//    [UIApplication sharedApplication].keyWindow.userInteractionEnabled = NO;
     [self animateSelect:button.selected duration:dtDuration];
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(dtDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -178,8 +177,7 @@
             [self.delegate faveButton:self didSelected:button.selected];
         }
         
-        [UIApplication sharedApplication].keyWindow.userInteractionEnabled = YES;
-        button.userInteractionEnabled = YES;
+//        [UIApplication sharedApplication].keyWindow.userInteractionEnabled = YES;
     });
 }
 

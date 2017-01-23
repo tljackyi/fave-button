@@ -7,7 +7,6 @@
 //
 
 #import "TTSpark.h"
-#import "Masonry.h"
 #import "UIView+TTAutoLayout.h"
 
 
@@ -45,21 +44,23 @@
 - (void)applyInit
 {
     self.dotFirst = [self createDotView:self.dotRadius.first fillColor:self.firstColor];
+    self.dotFirst.translatesAutoresizingMaskIntoConstraints = NO;
     self.dotSecond = [self createDotView:self.dotRadius.second fillColor:self.secondColor];
+    self.dotSecond.translatesAutoresizingMaskIntoConstraints = NO;
     
-    [self.dotSecond mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self);
-        make.width.height.equalTo(@(self.dotRadius.second * 2.0));
-        make.top.equalTo(self).offset(self.dotRadius.first * 2.0 + 4);
-
-    }];
+    NSLayoutConstraint *leftDotSecond = [NSLayoutConstraint constraintWithItem:self.dotSecond attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:0];
+    NSLayoutConstraint *topDotSecond = [NSLayoutConstraint constraintWithItem:self.dotSecond attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:self.dotRadius.first * 2.0 + 4];
+    NSLayoutConstraint *widthDotSecond = [NSLayoutConstraint constraintWithItem:self.dotSecond attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:self.dotRadius.second * 2.0];
+    NSLayoutConstraint *heightDotSecond = [NSLayoutConstraint constraintWithItem:self.dotSecond attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:self.dotRadius.second * 2.0];
+    [self addConstraints:@[leftDotSecond, topDotSecond]];
+    [self.dotSecond addConstraints:@[widthDotSecond, heightDotSecond]];
     
- 
-    [self.dotFirst mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self);
-        make.width.height.equalTo(@(self.dotRadius.first * 2.0));
-        make.bottom.equalTo(self.dotSecond.mas_top);
-    }];
+    NSLayoutConstraint *rightDotFirst = [NSLayoutConstraint constraintWithItem:self.dotFirst attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1 constant:0];
+    NSLayoutConstraint *bottomDotFirst = [NSLayoutConstraint constraintWithItem:self.dotFirst attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.dotSecond attribute:NSLayoutAttributeTop multiplier:1 constant:0];
+    NSLayoutConstraint *widthDotFirst = [NSLayoutConstraint constraintWithItem:self.dotFirst attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:self.dotRadius.first * 2.0];
+    NSLayoutConstraint *heightDotFirst = [NSLayoutConstraint constraintWithItem:self.dotFirst attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:self.dotRadius.first * 2.0];
+    [self addConstraints:@[rightDotFirst, bottomDotFirst]];
+    [self.dotFirst addConstraints:@[widthDotFirst, heightDotFirst]];
     
     self.transform = CGAffineTransformMakeRotation(self.angle*M_PI / 180.0);
 
@@ -78,20 +79,21 @@
 + (TTSpark *)createSpark:(TTFaveButton *)faveButton radius:(CGFloat)radius firstColor:(UIColor *)firstColor secondColor:(UIColor *)secondColor angle:(CGFloat)angle dotRadius:(DotRadius )dotRadius
 {
     TTSpark *spark = [[TTSpark alloc] init:radius firstColor:firstColor secondColor:secondColor angle:angle dotRadius:dotRadius];
-    spark.backgroundColor = [UIColor clearColor];
+    spark.translatesAutoresizingMaskIntoConstraints = NO;
     spark.layer.anchorPoint = CGPointMake(0.5, 1);
     spark.alpha = 0.0;
-    
+
     [faveButton.superview insertSubview:spark belowSubview:faveButton];
     
     CGFloat width = (dotRadius.first * 2.0 + dotRadius.second * 2.0);
     CGFloat height = radius + dotRadius.first * 2.0 + dotRadius.second * 2.0;
-    [spark mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.centerY.equalTo(faveButton);
-        make.width.equalTo(@(width));
-        make.height.equalTo(@(height));
-    }];
-    
+
+    NSLayoutConstraint *centerXConstraint = [NSLayoutConstraint constraintWithItem:spark attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:faveButton attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
+    NSLayoutConstraint *centerYConstraint = [NSLayoutConstraint constraintWithItem:spark attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:faveButton attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
+    NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:spark attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:width];
+    NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:spark attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:height];
+    [faveButton.superview addConstraints:@[centerXConstraint, centerYConstraint]];
+    [spark addConstraints:@[widthConstraint, heightConstraint]];
     
     return spark;
 }
